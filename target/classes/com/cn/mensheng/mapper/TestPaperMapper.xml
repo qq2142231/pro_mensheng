@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.TestPaperMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.TestPaperKey">
+    <id column="examId" jdbcType="INTEGER" property="examId" />
+    <id column="questionId" jdbcType="INTEGER" property="questionId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.cn.mensheng.dto.TestPaperKey">
+    delete from testpaper
+    where examId = #{examId,jdbcType=INTEGER}
+      and questionId = #{questionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.TestPaperKey">
+    insert into testpaper (examId, questionId)
+    values (#{examId,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.TestPaperKey">
+    insert into testpaper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examId != null">
+        examId,
+      </if>
+      <if test="questionId != null">
+        questionId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null">
+        #{questionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.SectionMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.Section">
+    <id column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <result column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="sectionName" jdbcType="VARCHAR" property="sectionName" />
+    <result column="briefInfo" jdbcType="VARCHAR" property="briefInfo" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sectionId, chapterId, sectionName, briefInfo, video
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from section
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from section
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.Section">
+    insert into section (sectionId, chapterId, sectionName, 
+      briefInfo, video)
+    values (#{sectionId,jdbcType=INTEGER}, #{chapterId,jdbcType=INTEGER}, #{sectionName,jdbcType=VARCHAR}, 
+      #{briefInfo,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.Section">
+    insert into section
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sectionId != null">
+        sectionId,
+      </if>
+      <if test="chapterId != null">
+        chapterId,
+      </if>
+      <if test="sectionName != null">
+        sectionName,
+      </if>
+      <if test="briefInfo != null">
+        briefInfo,
+      </if>
+      <if test="video != null">
+        video,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sectionId != null">
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null">
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionName != null">
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="briefInfo != null">
+        #{briefInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.Section">
+    update section
+    <set>
+      <if test="chapterId != null">
+        chapterId = #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionName != null">
+        sectionName = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="briefInfo != null">
+        briefInfo = #{briefInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.Section">
+    update section
+    set chapterId = #{chapterId,jdbcType=INTEGER},
+      sectionName = #{sectionName,jdbcType=VARCHAR},
+      briefInfo = #{briefInfo,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR}
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+  </update>
+</mapper>

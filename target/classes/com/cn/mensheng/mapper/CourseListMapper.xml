@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseListMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.CourseList">
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <id column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="studytime" jdbcType="TIMESTAMP" property="studytime" />
+    <result column="progress" jdbcType="INTEGER" property="progress" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="eva_content" jdbcType="VARCHAR" property="eva_content" />
+    <result column="eva_time" jdbcType="TIMESTAMP" property="eva_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stuId, courseId, createtime, studytime, progress, evaluate, eva_content, eva_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cn.mensheng.dto.CourseListKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courselist
+    where stuId = #{stuId,jdbcType=INTEGER}
+      and courseId = #{courseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cn.mensheng.dto.CourseListKey">
+    delete from courselist
+    where stuId = #{stuId,jdbcType=INTEGER}
+      and courseId = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.CourseList">
+    insert into courselist (stuId, courseId, createtime, 
+      studytime, progress, evaluate, 
+      eva_content, eva_time)
+    values (#{stuId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{studytime,jdbcType=TIMESTAMP}, #{progress,jdbcType=INTEGER}, #{evaluate,jdbcType=VARCHAR}, 
+      #{eva_content,jdbcType=VARCHAR}, #{eva_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.CourseList">
+    insert into courselist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stuId,
+      </if>
+      <if test="courseId != null">
+        courseId,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="studytime != null">
+        studytime,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="eva_content != null">
+        eva_content,
+      </if>
+      <if test="eva_time != null">
+        eva_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studytime != null">
+        #{studytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="eva_content != null">
+        #{eva_content,jdbcType=VARCHAR},
+      </if>
+      <if test="eva_time != null">
+        #{eva_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.CourseList">
+    update courselist
+    <set>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studytime != null">
+        studytime = #{studytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="eva_content != null">
+        eva_content = #{eva_content,jdbcType=VARCHAR},
+      </if>
+      <if test="eva_time != null">
+        eva_time = #{eva_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where stuId = #{stuId,jdbcType=INTEGER}
+      and courseId = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.CourseList">
+    update courselist
+    set createtime = #{createtime,jdbcType=TIMESTAMP},
+      studytime = #{studytime,jdbcType=TIMESTAMP},
+      progress = #{progress,jdbcType=INTEGER},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      eva_content = #{eva_content,jdbcType=VARCHAR},
+      eva_time = #{eva_time,jdbcType=TIMESTAMP}
+    where stuId = #{stuId,jdbcType=INTEGER}
+      and courseId = #{courseId,jdbcType=INTEGER}
+  </update>
+</mapper>

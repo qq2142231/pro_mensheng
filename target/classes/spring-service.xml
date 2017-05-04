@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--bean id="userService" class="com.cn.mensheng.form.service.Impl.UserServiceImpl"/>
+    <bean id="formService" class="com.cn.mensheng.form.service.Impl.FormServiceImpl"/>
+
+
+
+    <bean id="forumManageController" class="com.cn.mensheng.form.control.ForumManageController"/>
+    <bean id="loginController" class="com.cn.mensheng.form.control.LoginController"/>
+    <bean id="boardManageController" class="com.cn.mensheng.form.control.BoardManageController"/>
+    <bean id="registerController" class="com.cn.mensheng.form.control.RegisterController"/-->
+
+
+
+</beans>

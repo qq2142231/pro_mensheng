@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseListMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.course.module.CourseList">
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <id column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="studytime" jdbcType="TIMESTAMP" property="studytime" />
+    <result column="progress" jdbcType="INTEGER" property="progress" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="eva_content" jdbcType="VARCHAR" property="eva_content" />
+    <result column="eva_time" jdbcType="TIMESTAMP" property="eva_time" />
+  </resultMap>
+  <!--学生所选的课程-->
+  <resultMap id="CourseListResultMap" type="com.cn.mensheng.course.module.CourseListCustom" extends="BaseResultMap">
+    <association property="course" javaType="com.cn.mensheng.course.module.CourseCustom">
+      <id column="courseId" property="courseId"></id>
+      <result column="courseId" property="courseId"></result>
+      <result column="courseName" property="courseName"></result>
+      <result column="hour" property="hour"></result>
+      <association property="courseType" javaType="com.cn.mensheng.course.module.CourseType">
+        <id column="ctypeId" property="ctypeId"></id>
+        <result column="ctypeName" property="ctypeName"></result>
+        <result column="isCharge" property="isCharge"></result>
+        <result column="isLive" property="isLive"></result>
+        <result column="isPublic" property="isPublic"></result>
+        <result column="password" property="password"></result>
+      </association>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    stuId, courseId, createtime, studytime, progress, evaluate, eva_content, eva_time
+  </sql>
+  <sql id="CourseList_Content_List">
+    course.courseName,course.courseId,course.hour,
+    coursetype.ctypeName,coursetype.isCharge,coursetype.isLive,coursetype.isPublic,coursetype.password,
+    courselist.*
+  </sql>
+  <select id="selectCourseListByStuId" parameterType="java.lang.Integer" resultMap="CourseListResultMap">
+    select
+    <include refid="CourseList_Content_List" />
+    from course,coursetype,courselist
+    where courselist.stuId = #{stuId,jdbcType=INTEGER} AND course.courseId=courselist.courseId AND course.ctypeId=coursetype.ctypeId
+    ORDER BY courselist.studytime DESC
+  </select>
+</mapper>

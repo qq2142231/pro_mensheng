@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx
+   	 					http://www.springframework.org/schema/tx/spring-tx.xsd
+ 						http://www.springframework.org/schema/aop 
+    				    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<!-- 使用annotation注解方式配置事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:annotation-config/>
+    <aop:config proxy-target-class="true" />
+	<!-- 自动扫描 -->
+	<!--context:component-scan base-package="com.cn.mensheng.mapper" /-->
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:config.properties" />
+	</bean>
+	
+	<bean id ="dataSource" class= "org.apache.commons.dbcp.BasicDataSource" destroy-method= "close">
+          	<property name="driverClassName" value="${driver}" />
+			<property name="url" value="${url}" />
+			<property name="username" value="${username}" />
+			<property name="password" value="${password}" />
+           </bean>
+
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="plugins">
+			<array>
+
+
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+					<property name="properties">
+						<value>
+							<!--helperDialect=mysql
+							reasonable=true
+							supportMethodsArguments=true
+							params=count=countSql
+							autoRuntimeDialect=true-->
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" >
+			 <list>
+					<value>classpath*:com/cn/mensheng/mapper/*.xml</value>
+			 </list>
+		</property>
+	</bean>
+	
+	<!--bean id="transactionChecker" class="com.cn.mensheng.common.TransactionChecker" /-->
+
+	<!-- 配置SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cn.mensheng.mapper" />
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"></property>
+
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+	<!-- Spring 与Redis 的配置 -->
+	<!--bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.UserMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</-bean>
+
+	<bean id="topicMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.TopicMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="boardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.BoardMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+
+	</bean>
+
+	<bean id="postMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.PostMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id=" boardManager" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.BoardManager" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="loginLogMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cn.mensheng.mapper.LoginLogMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean-->
+
+</beans>

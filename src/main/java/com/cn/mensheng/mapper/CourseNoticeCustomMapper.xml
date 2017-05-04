@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.course.module.CourseNotice">
+    <id column="noticeId" jdbcType="INTEGER" property="noticeId" />
+    <result column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="noticeTime" jdbcType="TIMESTAMP" property="noticeTime" />
+    <result column="file" jdbcType="VARCHAR" property="file" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    noticeId, courseId, teacherId, content, noticeTime, file
+  </sql>
+  <select id="selectCourseNoticeListByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coursenotice
+    where courseId = #{courseId,jdbcType=INTEGER}
+    ORDER BY noticeTime DESC
+  </select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.HomeworkCustomMapper">
+  <resultMap id="HomeworkBaseResultMap" type="com.cn.mensheng.homework.module.Homework">
+    <id column="homeworkId" jdbcType="INTEGER" property="homeworkId" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <result column="homeworkName" jdbcType="VARCHAR" property="homeworkName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="correctAns" jdbcType="VARCHAR" property="correctAns" />
+    <result column="releasetime" jdbcType="TIMESTAMP" property="releasetime" />
+    <result column="file" jdbcType="VARCHAR" property="file" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    homeworkId, teacherId, chapterId, sectionId, homeworkName, content, correctAns, releasetime, 
+    file
+  </sql>
+  <sql id="Homework_Base_Column_List">
+    homeworkId, chapterId, homeworkName, content, releasetime
+    file
+  </sql>
+  <select id="selectHomeworksByChapterId" parameterType="java.lang.Integer" resultMap="HomeworkBaseResultMap">
+    select
+    <include refid="Homework_Base_Column_List" />
+    from homework
+    where homework.chapterId = #{chapterId,jdbcType=INTEGER}
+  </select>
+</mapper>

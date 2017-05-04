@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.WorkSubmitMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.WorkSubmit">
+    <id column="homeworkId" jdbcType="INTEGER" property="homeworkId" />
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <result column="submission" jdbcType="VARCHAR" property="submission" />
+    <result column="subtime" jdbcType="TIMESTAMP" property="subtime" />
+    <result column="subfile" jdbcType="VARCHAR" property="subfile" />
+    <result column="result" jdbcType="REAL" property="result" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    homeworkId, stuId, submission, subtime, subfile, result
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cn.mensheng.dto.WorkSubmitKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from worksubmit
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cn.mensheng.dto.WorkSubmitKey">
+    delete from worksubmit
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.WorkSubmit">
+    insert into worksubmit (homeworkId, stuId, submission, 
+      subtime, subfile, result
+      )
+    values (#{homeworkId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{submission,jdbcType=VARCHAR}, 
+      #{subtime,jdbcType=TIMESTAMP}, #{subfile,jdbcType=VARCHAR}, #{result,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.WorkSubmit">
+    insert into worksubmit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        homeworkId,
+      </if>
+      <if test="stuId != null">
+        stuId,
+      </if>
+      <if test="submission != null">
+        submission,
+      </if>
+      <if test="subtime != null">
+        subtime,
+      </if>
+      <if test="subfile != null">
+        subfile,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        #{homeworkId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="submission != null">
+        #{submission,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null">
+        #{subtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subfile != null">
+        #{subfile,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.WorkSubmit">
+    update worksubmit
+    <set>
+      <if test="submission != null">
+        submission = #{submission,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null">
+        subtime = #{subtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subfile != null">
+        subfile = #{subfile,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=REAL},
+      </if>
+    </set>
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.WorkSubmit">
+    update worksubmit
+    set submission = #{submission,jdbcType=VARCHAR},
+      subtime = #{subtime,jdbcType=TIMESTAMP},
+      subfile = #{subfile,jdbcType=VARCHAR},
+      result = #{result,jdbcType=REAL}
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+</mapper>

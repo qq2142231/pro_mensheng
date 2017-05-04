@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.student.service.module.Student">
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="certified_identity" jdbcType="VARCHAR" property="certified_identity" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="lastdegree" jdbcType="VARCHAR" property="lastdegree" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="numbering" jdbcType="INTEGER" property="numbering" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="isOpen" jdbcType="BIT" property="isOpen" />
+    <result column="course_num" jdbcType="INTEGER" property="course_num" />
+    <result column="isAssistant" jdbcType="BIT" property="isAssistant" />
+    <result column="isSquadleader" jdbcType="BIT" property="isSquadleader" />
+    <result column="overall_result" jdbcType="REAL" property="overall_result" />
+    <result column="study_situation" jdbcType="VARCHAR" property="study_situation" />
+    <result column="hasCertificate" jdbcType="BIT" property="hasCertificate" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stuId, nickname, telephone, email, picture, certified_identity, identity, realname, 
+    lastdegree, address, gender, profession, birthday, description, numbering, money, 
+    isOpen, course_num, isAssistant, isSquadleader, overall_result, study_situation, 
+    hasCertificate, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where stuId = #{stuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where stuId = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.student.service.module.Student">
+    insert into student (stuId, nickname, telephone, 
+      email, picture, certified_identity, 
+      identity, realname, lastdegree, 
+      address, gender, profession, 
+      birthday, description, numbering, 
+      money, isOpen, course_num, 
+      isAssistant, isSquadleader, overall_result, 
+      study_situation, hasCertificate, password
+      )
+    values (#{stuId,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{certified_identity,jdbcType=VARCHAR}, 
+      #{identity,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{lastdegree,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{numbering,jdbcType=INTEGER}, 
+      #{money,jdbcType=INTEGER}, #{isOpen,jdbcType=BIT}, #{course_num,jdbcType=INTEGER}, 
+      #{isAssistant,jdbcType=BIT}, #{isSquadleader,jdbcType=BIT}, #{overall_result,jdbcType=REAL}, 
+      #{study_situation,jdbcType=VARCHAR}, #{hasCertificate,jdbcType=BIT}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.student.service.module.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stuId,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="certified_identity != null">
+        certified_identity,
+      </if>
+      <if test="identity != null">
+        identity,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="lastdegree != null">
+        lastdegree,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="numbering != null">
+        numbering,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="isOpen != null">
+        isOpen,
+      </if>
+      <if test="course_num != null">
+        course_num,
+      </if>
+      <if test="isAssistant != null">
+        isAssistant,
+      </if>
+      <if test="isSquadleader != null">
+        isSquadleader,
+      </if>
+      <if test="overall_result != null">
+        overall_result,
+      </if>
+      <if test="study_situation != null">
+        study_situation,
+      </if>
+      <if test="hasCertificate != null">
+        hasCertificate,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="certified_identity != null">
+        #{certified_identity,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastdegree != null">
+        #{lastdegree,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=CHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="numbering != null">
+        #{numbering,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=BIT},
+      </if>
+      <if test="course_num != null">
+        #{course_num,jdbcType=INTEGER},
+      </if>
+      <if test="isAssistant != null">
+        #{isAssistant,jdbcType=BIT},
+      </if>
+      <if test="isSquadleader != null">
+        #{isSquadleader,jdbcType=BIT},
+      </if>
+      <if test="overall_result != null">
+        #{overall_result,jdbcType=REAL},
+      </if>
+      <if test="study_situation != null">
+        #{study_situation,jdbcType=VARCHAR},
+      </if>
+      <if test="hasCertificate != null">
+        #{hasCertificate,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.student.service.module.Student">
+    update student
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="certified_identity != null">
+        certified_identity = #{certified_identity,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastdegree != null">
+        lastdegree = #{lastdegree,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=CHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="numbering != null">
+        numbering = #{numbering,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null">
+        isOpen = #{isOpen,jdbcType=BIT},
+      </if>
+      <if test="course_num != null">
+        course_num = #{course_num,jdbcType=INTEGER},
+      </if>
+      <if test="isAssistant != null">
+        isAssistant = #{isAssistant,jdbcType=BIT},
+      </if>
+      <if test="isSquadleader != null">
+        isSquadleader = #{isSquadleader,jdbcType=BIT},
+      </if>
+      <if test="overall_result != null">
+        overall_result = #{overall_result,jdbcType=REAL},
+      </if>
+      <if test="study_situation != null">
+        study_situation = #{study_situation,jdbcType=VARCHAR},
+      </if>
+      <if test="hasCertificate != null">
+        hasCertificate = #{hasCertificate,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.student.service.module.Student">
+    update student
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      certified_identity = #{certified_identity,jdbcType=VARCHAR},
+      identity = #{identity,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      lastdegree = #{lastdegree,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=CHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      numbering = #{numbering,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      isOpen = #{isOpen,jdbcType=BIT},
+      course_num = #{course_num,jdbcType=INTEGER},
+      isAssistant = #{isAssistant,jdbcType=BIT},
+      isSquadleader = #{isSquadleader,jdbcType=BIT},
+      overall_result = #{overall_result,jdbcType=REAL},
+      study_situation = #{study_situation,jdbcType=VARCHAR},
+      hasCertificate = #{hasCertificate,jdbcType=BIT},
+      password = #{password,jdbcType=VARCHAR}
+    where stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+</mapper>

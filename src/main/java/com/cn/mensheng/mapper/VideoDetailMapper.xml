@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.VideoDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.VideoDetail">
+    <id column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <result column="last_watch_time" jdbcType="TIMESTAMP" property="last_watch_time" />
+    <result column="watch_times" jdbcType="INTEGER" property="watch_times" />
+    <result column="total_time" jdbcType="INTEGER" property="total_time" />
+    <result column="last_watch_videotime" jdbcType="VARCHAR" property="last_watch_videotime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sectionId, stuId, last_watch_time, watch_times, total_time, last_watch_videotime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cn.mensheng.dto.VideoDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from videodetail
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cn.mensheng.dto.VideoDetailKey">
+    delete from videodetail
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.VideoDetail">
+    insert into videodetail (sectionId, stuId, last_watch_time, 
+      watch_times, total_time, last_watch_videotime
+      )
+    values (#{sectionId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{last_watch_time,jdbcType=TIMESTAMP}, 
+      #{watch_times,jdbcType=INTEGER}, #{total_time,jdbcType=INTEGER}, #{last_watch_videotime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.VideoDetail">
+    insert into videodetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sectionId != null">
+        sectionId,
+      </if>
+      <if test="stuId != null">
+        stuId,
+      </if>
+      <if test="last_watch_time != null">
+        last_watch_time,
+      </if>
+      <if test="watch_times != null">
+        watch_times,
+      </if>
+      <if test="total_time != null">
+        total_time,
+      </if>
+      <if test="last_watch_videotime != null">
+        last_watch_videotime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sectionId != null">
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="last_watch_time != null">
+        #{last_watch_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="watch_times != null">
+        #{watch_times,jdbcType=INTEGER},
+      </if>
+      <if test="total_time != null">
+        #{total_time,jdbcType=INTEGER},
+      </if>
+      <if test="last_watch_videotime != null">
+        #{last_watch_videotime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.VideoDetail">
+    update videodetail
+    <set>
+      <if test="last_watch_time != null">
+        last_watch_time = #{last_watch_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="watch_times != null">
+        watch_times = #{watch_times,jdbcType=INTEGER},
+      </if>
+      <if test="total_time != null">
+        total_time = #{total_time,jdbcType=INTEGER},
+      </if>
+      <if test="last_watch_videotime != null">
+        last_watch_videotime = #{last_watch_videotime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.VideoDetail">
+    update videodetail
+    set last_watch_time = #{last_watch_time,jdbcType=TIMESTAMP},
+      watch_times = #{watch_times,jdbcType=INTEGER},
+      total_time = #{total_time,jdbcType=INTEGER},
+      last_watch_videotime = #{last_watch_videotime,jdbcType=VARCHAR}
+    where sectionId = #{sectionId,jdbcType=INTEGER}
+      and stuId = #{stuId,jdbcType=INTEGER}
+  </update>
+</mapper>

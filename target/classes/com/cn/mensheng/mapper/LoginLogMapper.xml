@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.form.module.LoginLog">
+    <id column="login_log_id" jdbcType="INTEGER" property="login_log_id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="login_datetime" jdbcType="DATE" property="login_datetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    login_log_id, user_id, ip, login_datetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_login_log
+    where login_log_id = #{login_log_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_login_log
+    where login_log_id = #{login_log_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.form.module.LoginLog">
+    insert into t_login_log (login_log_id, user_id, ip, 
+      login_datetime)
+    values (#{login_log_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
+      #{login_datetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.form.module.LoginLog">
+    insert into t_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="login_log_id != null">
+        login_log_id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="login_datetime != null">
+        login_datetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="login_log_id != null">
+        #{login_log_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="login_datetime != null">
+        #{login_datetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.form.module.LoginLog">
+    update t_login_log
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="login_datetime != null">
+        login_datetime = #{login_datetime,jdbcType=DATE},
+      </if>
+    </set>
+    where login_log_id = #{login_log_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.form.module.LoginLog">
+    update t_login_log
+    set user_id = #{user_id,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      login_datetime = #{login_datetime,jdbcType=DATE}
+    where login_log_id = #{login_log_id,jdbcType=INTEGER}
+  </update>
+</mapper>

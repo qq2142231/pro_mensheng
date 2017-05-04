@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseCustomMapper">
+  <resultMap id="CourseBaseResultMap" type="com.cn.mensheng.course.module.Course">
+    <id column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="ctypeId" jdbcType="INTEGER" property="ctypeId" />
+    <result column="courseName" jdbcType="VARCHAR" property="courseName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="courseware" jdbcType="VARCHAR" property="courseware" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="hour" jdbcType="CHAR" property="hour" />
+    <result column="stu_num" jdbcType="INTEGER" property="stu_num" />
+    <result column="ass_criteria" jdbcType="VARCHAR" property="ass_criteria" />
+    <result column="courseReference" jdbcType="VARCHAR" property="courseReference" />
+    <result column="certificate_info" jdbcType="VARCHAR" property="certificate_info" />
+    <result column="intro_video" jdbcType="VARCHAR" property="intro_video" />
+    <result column="evaluation" jdbcType="INTEGER" property="evaluation" />
+  </resultMap>
+  <resultMap id="ChapterBaseResultMap" type="com.cn.mensheng.course.module.Chapter">
+    <id column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="chapterName" jdbcType="VARCHAR" property="chapterName" />
+    <result column="briefInfo" jdbcType="VARCHAR" property="briefInfo" />
+  </resultMap>
+  <resultMap id="SectionBaseResultMap" type="com.cn.mensheng.course.module.Section">
+    <id column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <result column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="sectionName" jdbcType="VARCHAR" property="sectionName" />
+    <result column="briefInfo" jdbcType="VARCHAR" property="briefInfo" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+  </resultMap>
+  <resultMap id="VideoBaseResultMap" type="com.cn.mensheng.videodetail.module.VideoDetail">
+    <id column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <result column="last_watch_time" jdbcType="TIMESTAMP" property="last_watch_time" />
+    <result column="watch_times" jdbcType="INTEGER" property="watch_times" />
+    <result column="total_time" jdbcType="INTEGER" property="total_time" />
+    <result column="last_watch_videotime" jdbcType="VARCHAR" property="last_watch_videotime" />
+  </resultMap>
+  <!--leafqun 获取课程内容-->
+  <resultMap id="CourseResultMap" type="com.cn.mensheng.course.module.CourseCustom" extends="CourseBaseResultMap">
+    <association property="courseType" javaType="com.cn.mensheng.course.module.CourseType">
+      <id column="ctypeId" property="ctypeId"></id>
+      <result column="ctypeName" property="ctypeName"></result>
+      <result column="isCharge" property="isCharge"></result>
+      <result column="isLive" property="isLive"></result>
+      <result column="isPublic" property="isPublic"></result>
+    </association>
+    <association property="teacher" javaType="com.cn.mensheng.teacher.module.Teacher">
+      <id column="teacherId" property="teacherId"></id>
+      <result column="teacherName" property="teacherName"></result>
+      <result column="job_title" property="job_title"></result>
+      <result column="affi_units" property="affi_units"></result>
+    </association>
+    <collection property="chapterList" javaType="com.cn.mensheng.course.module.ChapterCustom">
+      <id column="chapterId" property="chapterId"></id>
+      <result column="chapterName" property="chapterName"></result>
+      <collection property="sectionList" javaType="com.cn.mensheng.course.module.Section">
+        <id column="sectionId" property="sectionId"></id>
+        <result column="sectionName" property="sectionName"></result>
+      </collection>
+    </collection>
+  </resultMap>
+  <!--视频-->
+  <resultMap id="ChapterResultMap" type="com.cn.mensheng.course.module.ChapterCustom" extends="ChapterBaseResultMap">
+    <collection property="sectionList" javaType="com.cn.mensheng.course.module.SectionCustom">
+      <id column="chapterId" jdbcType="INTEGER" property="chapterId" />
+      <result column="courseId" jdbcType="INTEGER" property="courseId" />
+      <result column="chapterName" jdbcType="VARCHAR" property="chapterName" />
+      <result column="briefInfo" jdbcType="VARCHAR" property="briefInfo" />
+      <collection property="videoDetailList" javaType="com.cn.mensheng.videodetail.module.VideoDetail">
+        <id column="sectionId" jdbcType="INTEGER" property="sectionId" />
+        <id column="stuId" jdbcType="INTEGER" property="stuId" />
+        <result column="last_watch_time" jdbcType="TIMESTAMP" property="last_watch_time" />
+        <result column="watch_times" jdbcType="INTEGER" property="watch_times" />
+        <result column="total_time" jdbcType="INTEGER" property="total_time" />
+        <result column="last_watch_videotime" jdbcType="VARCHAR" property="last_watch_videotime" />
+      </collection>
+    </collection>
+  </resultMap>
+  <!--作业-->
+  <sql id="Course_Content_List">
+    course.*,
+    teacher.teacherName,teacher.job_title,teacher.affi_units,
+    chapter.chapterName,
+    section.sectionName
+  </sql>
+  <sql id="Chapter_Content_List">
+    chapter.chapterId, chapter.courseId, chapter.chapterName, chapter.briefInfo,
+    section.sectionName, section.briefInfo, section.video
+  </sql>
+  <sql id="Chapter_Base_Column_List">
+    chapterId, courseId, chapterName, briefInfo, deadline, publish_time
+  </sql>
+  <select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="CourseResultMap">
+    select
+    <include refid="Course_Content_List" />
+    from course,teacher,chapter,section
+    where course.courseId = #{courseId,jdbcType=INTEGER} AND course.teacherId=teacher.teacherId AND course.courseId=chapter.courseId AND section.chapterId=chapter.chapterId
+  </select>
+  <select id="selectCourseContentByCourseId" parameterType="java.lang.Integer" resultMap="ChapterResultMap">
+    select
+    <include refid="Chapter_Content_List"></include>
+    from chapter,section
+    where chapter.courseId = #{courseId,jdbcType=INTEGER} AND chapter.chapterId=section.chapterId
+  </select>
+  <select id="selectChaptersByCourseId" parameterType="java.lang.Integer" resultMap="ChapterBaseResultMap">
+    select
+    <include refid="Chapter_Base_Column_List" />
+    from chapter
+    where chapter.courseId = #{courseId,jdbcType=INTEGER}
+  </select>
+</mapper>

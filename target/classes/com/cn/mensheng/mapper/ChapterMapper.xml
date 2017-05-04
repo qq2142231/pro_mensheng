@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.ChapterMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.Chapter">
+    <id column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="chapterName" jdbcType="VARCHAR" property="chapterName" />
+    <result column="briefInfo" jdbcType="VARCHAR" property="briefInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chapterId, courseId, chapterName, briefInfo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chapter
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chapter
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.Chapter">
+    insert into chapter (chapterId, courseId, chapterName, 
+      briefInfo)
+    values (#{chapterId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{chapterName,jdbcType=VARCHAR}, 
+      #{briefInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.Chapter">
+    insert into chapter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chapterId != null">
+        chapterId,
+      </if>
+      <if test="courseId != null">
+        courseId,
+      </if>
+      <if test="chapterName != null">
+        chapterName,
+      </if>
+      <if test="briefInfo != null">
+        briefInfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chapterId != null">
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterName != null">
+        #{chapterName,jdbcType=VARCHAR},
+      </if>
+      <if test="briefInfo != null">
+        #{briefInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.Chapter">
+    update chapter
+    <set>
+      <if test="courseId != null">
+        courseId = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterName != null">
+        chapterName = #{chapterName,jdbcType=VARCHAR},
+      </if>
+      <if test="briefInfo != null">
+        briefInfo = #{briefInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.Chapter">
+    update chapter
+    set courseId = #{courseId,jdbcType=INTEGER},
+      chapterName = #{chapterName,jdbcType=VARCHAR},
+      briefInfo = #{briefInfo,jdbcType=VARCHAR}
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+  </update>
+</mapper>

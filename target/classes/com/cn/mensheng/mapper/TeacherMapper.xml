@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.teacher.module.Teacher">
+    <id column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="teacherName" jdbcType="VARCHAR" property="teacherName" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="affi_units" jdbcType="VARCHAR" property="affi_units" />
+    <result column="job_title" jdbcType="VARCHAR" property="job_title" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="focus_num" jdbcType="INTEGER" property="focus_num" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    teacherId, teacherName, profession, description, affi_units, job_title, photo, focus_num, 
+    password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from teacher
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.teacher.module.Teacher">
+    insert into teacher (teacherId, teacherName, profession, 
+      description, affi_units, job_title, 
+      photo, focus_num, password
+      )
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{affi_units,jdbcType=VARCHAR}, #{job_title,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{focus_num,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.teacher.module.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        teacherId,
+      </if>
+      <if test="teacherName != null">
+        teacherName,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="affi_units != null">
+        affi_units,
+      </if>
+      <if test="job_title != null">
+        job_title,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="focus_num != null">
+        focus_num,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affi_units != null">
+        #{affi_units,jdbcType=VARCHAR},
+      </if>
+      <if test="job_title != null">
+        #{job_title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="focus_num != null">
+        #{focus_num,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.teacher.module.Teacher">
+    update teacher
+    <set>
+      <if test="teacherName != null">
+        teacherName = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affi_units != null">
+        affi_units = #{affi_units,jdbcType=VARCHAR},
+      </if>
+      <if test="job_title != null">
+        job_title = #{job_title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="focus_num != null">
+        focus_num = #{focus_num,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.teacher.module.Teacher">
+    update teacher
+    set teacherName = #{teacherName,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      affi_units = #{affi_units,jdbcType=VARCHAR},
+      job_title = #{job_title,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      focus_num = #{focus_num,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR}
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

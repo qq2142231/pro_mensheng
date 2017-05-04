@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.HomeworkMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.Homework">
+    <id column="homeworkId" jdbcType="INTEGER" property="homeworkId" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="chapterId" jdbcType="INTEGER" property="chapterId" />
+    <result column="sectionId" jdbcType="INTEGER" property="sectionId" />
+    <result column="homeworkName" jdbcType="VARCHAR" property="homeworkName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="correctAns" jdbcType="VARCHAR" property="correctAns" />
+    <result column="releasetime" jdbcType="TIMESTAMP" property="releasetime" />
+    <result column="file" jdbcType="VARCHAR" property="file" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    homeworkId, teacherId, chapterId, sectionId, homeworkName, content, correctAns, releasetime, 
+    file
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from homework
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from homework
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.Homework">
+    insert into homework (homeworkId, teacherId, chapterId, 
+      sectionId, homeworkName, content, 
+      correctAns, releasetime, file
+      )
+    values (#{homeworkId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{chapterId,jdbcType=INTEGER}, 
+      #{sectionId,jdbcType=INTEGER}, #{homeworkName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{correctAns,jdbcType=VARCHAR}, #{releasetime,jdbcType=TIMESTAMP}, #{file,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.Homework">
+    insert into homework
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        homeworkId,
+      </if>
+      <if test="teacherId != null">
+        teacherId,
+      </if>
+      <if test="chapterId != null">
+        chapterId,
+      </if>
+      <if test="sectionId != null">
+        sectionId,
+      </if>
+      <if test="homeworkName != null">
+        homeworkName,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="correctAns != null">
+        correctAns,
+      </if>
+      <if test="releasetime != null">
+        releasetime,
+      </if>
+      <if test="file != null">
+        file,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="homeworkId != null">
+        #{homeworkId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null">
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionId != null">
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkName != null">
+        #{homeworkName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="correctAns != null">
+        #{correctAns,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null">
+        #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="file != null">
+        #{file,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.Homework">
+    update homework
+    <set>
+      <if test="teacherId != null">
+        teacherId = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null">
+        chapterId = #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionId != null">
+        sectionId = #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="homeworkName != null">
+        homeworkName = #{homeworkName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="correctAns != null">
+        correctAns = #{correctAns,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null">
+        releasetime = #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="file != null">
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.Homework">
+    update homework
+    set teacherId = #{teacherId,jdbcType=INTEGER},
+      chapterId = #{chapterId,jdbcType=INTEGER},
+      sectionId = #{sectionId,jdbcType=INTEGER},
+      homeworkName = #{homeworkName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      correctAns = #{correctAns,jdbcType=VARCHAR},
+      releasetime = #{releasetime,jdbcType=TIMESTAMP},
+      file = #{file,jdbcType=VARCHAR}
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+  </update>
+</mapper>

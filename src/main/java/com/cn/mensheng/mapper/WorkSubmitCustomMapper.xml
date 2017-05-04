@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.WorkSubmitMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.WorkSubmit">
+    <id column="homeworkId" jdbcType="INTEGER" property="homeworkId" />
+    <id column="stuId" jdbcType="INTEGER" property="stuId" />
+    <result column="submission" jdbcType="VARCHAR" property="submission" />
+    <result column="subtime" jdbcType="TIMESTAMP" property="subtime" />
+    <result column="subfile" jdbcType="VARCHAR" property="subfile" />
+    <result column="result" jdbcType="REAL" property="result" />
+  </resultMap>
+  <resultMap id="WorkSubmitResultMap" type="com.cn.mensheng.homework.module.WorkSubmitCustom" extends="BaseResultMap">
+    <association property="teacher" javaType="com.cn.mensheng.teacher.module.Teacher">
+      <id column="teacherId" property="teacherId"></id>
+      <result column="teacherName" property="teacherName"></result>
+    </association>
+    <association property="student" javaType="com.cn.mensheng.student.module.Student">
+      <id column="stuId" property="stuId"></id>
+      <result column="stuName" property="stuName"></result>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    homeworkId, stuId, submission, subtime, subfile, result
+  </sql>
+  <sql id="WorkSubmit_Column_List">
+    worksubmit.homeworkId, worksubmit.stuId, worksubmit.submission,worksubmit.subtime,worksubmit.subfile,worksubmit.result
+    student.stuId,student.stuName,
+    teacher.teacherId,teacher.teacherName
+  </sql>
+  <select id="selectWorkSubmitByHomeworkId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from worksubmit
+    where homeworkId = #{homeworkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectWorkSubmitByTeacherId" parameterType="java.lang.Integer" resultMap="WorkSubmitResultMap">
+    select
+    <include refid="WorkSubmit_Column_List" />
+    from worksubmit,homework,teacher,student
+    where teacher.teacherId = #{teacherId,jdbcType=INTEGER}
+    and teacher.teacherId=homework.teacherId
+    and homework.homeworkId=worksubmit.homeworkId
+    and worksubmit.stuId=student.stuId
+  </select>
+</mapper>

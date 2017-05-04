@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.CourseNotice">
+    <id column="noticeId" jdbcType="INTEGER" property="noticeId" />
+    <result column="courseId" jdbcType="INTEGER" property="courseId" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="noticeTime" jdbcType="TIMESTAMP" property="noticeTime" />
+    <result column="file" jdbcType="VARCHAR" property="file" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    noticeId, courseId, teacherId, content, noticeTime, file
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coursenotice
+    where noticeId = #{noticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from coursenotice
+    where noticeId = #{noticeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.CourseNotice">
+    insert into coursenotice (noticeId, courseId, teacherId, 
+      content, noticeTime, file
+      )
+    values (#{noticeId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{noticeTime,jdbcType=TIMESTAMP}, #{file,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.CourseNotice">
+    insert into coursenotice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        noticeId,
+      </if>
+      <if test="courseId != null">
+        courseId,
+      </if>
+      <if test="teacherId != null">
+        teacherId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="noticeTime != null">
+        noticeTime,
+      </if>
+      <if test="file != null">
+        file,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null">
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="file != null">
+        #{file,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.CourseNotice">
+    update coursenotice
+    <set>
+      <if test="courseId != null">
+        courseId = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        teacherId = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null">
+        noticeTime = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="file != null">
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where noticeId = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.CourseNotice">
+    update coursenotice
+    set courseId = #{courseId,jdbcType=INTEGER},
+      teacherId = #{teacherId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      noticeTime = #{noticeTime,jdbcType=TIMESTAMP},
+      file = #{file,jdbcType=VARCHAR}
+    where noticeId = #{noticeId,jdbcType=INTEGER}
+  </update>
+</mapper>

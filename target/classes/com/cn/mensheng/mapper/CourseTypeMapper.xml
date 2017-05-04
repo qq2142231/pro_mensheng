@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.CourseTypeMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.dto.CourseType">
+    <id column="ctypeId" jdbcType="INTEGER" property="ctypeId" />
+    <result column="ctypeName" jdbcType="VARCHAR" property="ctypeName" />
+    <result column="isCharge" jdbcType="BIT" property="isCharge" />
+    <result column="isLive" jdbcType="BIT" property="isLive" />
+    <result column="isPublic" jdbcType="BIT" property="isPublic" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ctypeId, ctypeName, isCharge, isLive, isPublic, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coursetype
+    where ctypeId = #{ctypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from coursetype
+    where ctypeId = #{ctypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.dto.CourseType">
+    insert into coursetype (ctypeId, ctypeName, isCharge, 
+      isLive, isPublic, password)
+    values (#{ctypeId,jdbcType=INTEGER}, #{ctypeName,jdbcType=VARCHAR}, #{isCharge,jdbcType=BIT}, 
+      #{isLive,jdbcType=BIT}, #{isPublic,jdbcType=BIT}, #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.dto.CourseType">
+    insert into coursetype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ctypeId != null">
+        ctypeId,
+      </if>
+      <if test="ctypeName != null">
+        ctypeName,
+      </if>
+      <if test="isCharge != null">
+        isCharge,
+      </if>
+      <if test="isLive != null">
+        isLive,
+      </if>
+      <if test="isPublic != null">
+        isPublic,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ctypeId != null">
+        #{ctypeId,jdbcType=INTEGER},
+      </if>
+      <if test="ctypeName != null">
+        #{ctypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCharge != null">
+        #{isCharge,jdbcType=BIT},
+      </if>
+      <if test="isLive != null">
+        #{isLive,jdbcType=BIT},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.dto.CourseType">
+    update coursetype
+    <set>
+      <if test="ctypeName != null">
+        ctypeName = #{ctypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCharge != null">
+        isCharge = #{isCharge,jdbcType=BIT},
+      </if>
+      <if test="isLive != null">
+        isLive = #{isLive,jdbcType=BIT},
+      </if>
+      <if test="isPublic != null">
+        isPublic = #{isPublic,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ctypeId = #{ctypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.dto.CourseType">
+    update coursetype
+    set ctypeName = #{ctypeName,jdbcType=VARCHAR},
+      isCharge = #{isCharge,jdbcType=BIT},
+      isLive = #{isLive,jdbcType=BIT},
+      isPublic = #{isPublic,jdbcType=BIT},
+      password = #{password,jdbcType=VARCHAR}
+    where ctypeId = #{ctypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

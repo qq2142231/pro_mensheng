@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.form.module.Topic">
+    <id column="topic_id" jdbcType="INTEGER" property="topic_id" />
+    <result column="board_id" jdbcType="INTEGER" property="board_id" />
+    <result column="topic_title" jdbcType="VARCHAR" property="topic_title" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="create_time" jdbcType="DATE" property="create_time" />
+    <result column="last_post" jdbcType="DATE" property="last_post" />
+    <result column="topic_views" jdbcType="INTEGER" property="topic_views" />
+    <result column="topic_replies" jdbcType="INTEGER" property="topic_replies" />
+    <result column="digest" jdbcType="INTEGER" property="digest" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    topic_id, board_id, topic_title, user_id, create_time, last_post, topic_views, topic_replies, 
+    digest
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_topic
+    where topic_id = #{topic_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBoardID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_topic
+    where board_id = #{board_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_topic
+    where topic_id = #{topic_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.form.module.Topic">
+    insert into t_topic (topic_id, board_id, topic_title, 
+      user_id, create_time, last_post, 
+      topic_views, topic_replies, digest
+      )
+    values (#{topic_id,jdbcType=INTEGER}, #{board_id,jdbcType=INTEGER}, #{topic_title,jdbcType=VARCHAR}, 
+      #{user_id,jdbcType=INTEGER}, #{create_time,jdbcType=DATE}, #{last_post,jdbcType=DATE}, 
+      #{topic_views,jdbcType=INTEGER}, #{topic_replies,jdbcType=INTEGER}, #{digest,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.form.module.Topic">
+    insert into t_topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="topic_id != null">
+        topic_id,
+      </if>
+      <if test="board_id != null">
+        board_id,
+      </if>
+      <if test="topic_title != null">
+        topic_title,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="last_post != null">
+        last_post,
+      </if>
+      <if test="topic_views != null">
+        topic_views,
+      </if>
+      <if test="topic_replies != null">
+        topic_replies,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="topic_id != null">
+        #{topic_id,jdbcType=INTEGER},
+      </if>
+      <if test="board_id != null">
+        #{board_id,jdbcType=INTEGER},
+      </if>
+      <if test="topic_title != null">
+        #{topic_title,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=DATE},
+      </if>
+      <if test="last_post != null">
+        #{last_post,jdbcType=DATE},
+      </if>
+      <if test="topic_views != null">
+        #{topic_views,jdbcType=INTEGER},
+      </if>
+      <if test="topic_replies != null">
+        #{topic_replies,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.form.module.Topic">
+    update t_topic
+    <set>
+      <if test="board_id != null">
+        board_id = #{board_id,jdbcType=INTEGER},
+      </if>
+      <if test="topic_title != null">
+        topic_title = #{topic_title,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=DATE},
+      </if>
+      <if test="last_post != null">
+        last_post = #{last_post,jdbcType=DATE},
+      </if>
+      <if test="topic_views != null">
+        topic_views = #{topic_views,jdbcType=INTEGER},
+      </if>
+      <if test="topic_replies != null">
+        topic_replies = #{topic_replies,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=INTEGER},
+      </if>
+    </set>
+    where topic_id = #{topic_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.form.module.Topic">
+    update t_topic
+    set board_id = #{board_id,jdbcType=INTEGER},
+      topic_title = #{topic_title,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=DATE},
+      last_post = #{last_post,jdbcType=DATE},
+      topic_views = #{topic_views,jdbcType=INTEGER},
+      topic_replies = #{topic_replies,jdbcType=INTEGER},
+      digest = #{digest,jdbcType=INTEGER}
+    where topic_id = #{topic_id,jdbcType=INTEGER}
+  </update>
+</mapper>

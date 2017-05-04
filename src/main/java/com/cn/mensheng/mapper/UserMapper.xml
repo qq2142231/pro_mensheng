@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.mensheng.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.cn.mensheng.form.module.User">
+    <id column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_type" jdbcType="TINYINT" property="user_type" />
+    <result column="locked" jdbcType="TINYINT" property="locked" />
+    <result column="credit" jdbcType="INTEGER" property="credit" />
+    <result column="last_visit" jdbcType="TIMESTAMP" property="last_visit" />
+    <result column="last_ip" jdbcType="VARCHAR" property="last_ip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_name, password, user_type, locked, credit, last_visit, last_ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_name = #{user_name,jdbcType=VARCHAR}
+  </select>
+  <select id="loadAll"  resultMap="BaseResultMap">
+    select *
+   from t_user
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.mensheng.form.module.User">
+    insert into t_user (user_id, user_name, password, 
+      user_type, locked, credit, 
+      last_visit, last_ip)
+    values (#{user_id,jdbcType=INTEGER}, #{user_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{user_type,jdbcType=TINYINT}, #{locked,jdbcType=TINYINT}, #{credit,jdbcType=INTEGER}, 
+      #{last_visit,jdbcType=TIMESTAMP}, #{last_ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.mensheng.form.module.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="user_name != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="user_type != null">
+        user_type,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="last_visit != null">
+        last_visit,
+      </if>
+      <if test="last_ip != null">
+        last_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_name != null">
+        #{user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="user_type != null">
+        #{user_type,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="last_visit != null">
+        #{last_visit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="last_ip != null">
+        #{last_ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.mensheng.form.module.User">
+    update t_user
+    <set>
+      <if test="user_name != null">
+        user_name = #{user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="user_type != null">
+        user_type = #{user_type,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="last_visit != null">
+        last_visit = #{last_visit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="last_ip != null">
+        last_ip = #{last_ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.mensheng.form.module.User">
+    update t_user
+    set user_name = #{user_name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_type = #{user_type,jdbcType=TINYINT},
+      locked = #{locked,jdbcType=TINYINT},
+      credit = #{credit,jdbcType=INTEGER},
+      last_visit = #{last_visit,jdbcType=TIMESTAMP},
+      last_ip = #{last_ip,jdbcType=VARCHAR}
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </update>
+</mapper>

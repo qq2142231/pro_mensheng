@@ -4,6 +4,7 @@ import com.cn.mensheng.course.module.CourseList;
 import com.cn.mensheng.course.module.CourseListCustom;
 import com.cn.mensheng.course.service.All_CourseService;
 import com.cn.mensheng.mapper.All_CourseMapper;
+import com.github.pagehelper.PageHelper;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;

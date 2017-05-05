@@ -81,10 +81,7 @@
 		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/static/*</url-pattern>
-	</servlet-mapping>
+
 	<!-- 配置SESSION超时，单位是分钟 -->
 	<session-config>
 		<session-timeout>30</session-timeout>
